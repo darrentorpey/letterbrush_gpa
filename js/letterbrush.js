@@ -83,7 +83,7 @@ $(function() {
     undoStack.push($.extend(true, [], text)); // deep clone
   }
   
-  var defaultPallete = {
+  var defaultPalette = {
     "R": "red",
     "O": "orange",
     "Y": "yellow",
@@ -114,25 +114,16 @@ $(function() {
   if (localStorage && localStorage.getItem("palette")) {
     palette = JSON.parse(localStorage.getItem("palette"));
   } else if (chrome_local) {
-    // TODO: Simplify this and remove the "palette = defaultPallete" redundancy
     chrome.storage.local.getBytesInUse('settings', function(size) {
       if (size) {
         chrome.storage.local.get('settings', function(data) {
-          console.log('Data retrieved from settings', data.settings);
-          palette = data.settings.palette;
-          console.log('Palette loaded from settings', data.settings.palette);
+          palette = data.settings.palette || palette;
+          // console.log('Palette loaded from settings', data.settings.palette);
         });
-      } else {
-        // console.log('Using default pallete (1)');
-        palette = defaultPallete;
       }
     })
-  } else {
-    // console.log('Using default pallete (2)');
-    palette = defaultPallete;
   }
-  palette = palette || defaultPallete;
-  // console.log('Palette is', palette);
+  palette = palette || defaultPalette;
 
   // generate test data
   text.push([]);
@@ -671,7 +662,6 @@ $(function() {
         localStorage.setItem("palette", JSON.stringify(palette));
       } else if (chrome_local) {
         chrome.storage.local.set({ 'settings': { 'palette': palette } });
-        // chrome.storage.local.set({ 'palette': palette });
       }
     }
   }
@@ -686,7 +676,7 @@ $(function() {
       buttons: {
         save: colorSave,
         reset: function() {
-          $("#colorsJSON").val(JSON.stringify(defaultPallete));
+          $("#colorsJSON").val(JSON.stringify(defaultPalette));
         },
         cancel: function() {
           $(this).dialog("close");
