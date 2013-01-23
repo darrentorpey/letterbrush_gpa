@@ -95,15 +95,45 @@ $(function() {
   var palette;
 
   // GPA: checking for localStorage gives an error
-  var localStorage = false;
+  var chrome_local = false;
+  try {
+    var test = 'feature_detecting';
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+  } catch(e) {
+    localStorage = false;
+
+    try {
+      chrome.storage.local
+    } catch(e) {
+      chrome_local = false;
+    }
+    chrome_local = true;
+  }
 
   if (localStorage && localStorage.getItem("palette")) {
     palette = JSON.parse(localStorage.getItem("palette"));
-  }
-  else {
+  } else if (chrome_local) {
+    // TODO: Simplify this and remove the "palette = defaultPallete" redundancy
+    chrome.storage.local.getBytesInUse('settings', function(size) {
+      if (size) {
+        chrome.storage.local.get('settings', function(data) {
+          console.log('Data retrieved from settings', data.settings);
+          palette = data.settings.palette;
+          console.log('Palette loaded from settings', data.settings.palette);
+        });
+      } else {
+        // console.log('Using default pallete (1)');
+        palette = defaultPallete;
+      }
+    })
+  } else {
+    // console.log('Using default pallete (2)');
     palette = defaultPallete;
   }
-  
+  palette = palette || defaultPallete;
+  // console.log('Palette is', palette);
+
   // generate test data
   text.push([]);
   for (i = 0; i < 50; i++) {
@@ -183,7 +213,7 @@ $(function() {
                        (this.y - view.y) * view.scale,
                        view.scale,
                        view.scale);
-					});
+          });
 
           // render a line
           ctx.strokeStyle = "rgba(0, 150, 0, .8)";
@@ -639,6 +669,9 @@ $(function() {
       draw();
       if (localStorage) {
         localStorage.setItem("palette", JSON.stringify(palette));
+      } else if (chrome_local) {
+        chrome.storage.local.set({ 'settings': { 'palette': palette } });
+        // chrome.storage.local.set({ 'palette': palette });
       }
     }
   }
