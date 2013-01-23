@@ -14,13 +14,15 @@ GPA.readFile = function(onRead, opts) {
   var roe;
   chrome.fileSystem.chooseEntry({type: 'openFile'}, function(readOnlyEntry) {
     roe = readOnlyEntry;
-    Editor.current_file = readOnlyEntry;
     // window.last_readOnlyEntry = readOnlyEntry;
     readOnlyEntry.file(function(file) {
       var reader = new FileReader();
 
       reader.onerror = errorHandler;
-      reader.onloadend = onRead;
+      reader.onloadend = function (e) {
+        Editor.current_file = readOnlyEntry;
+        onRead(e);
+      };
 
       reader.readAsText(file);
     });
@@ -74,6 +76,7 @@ GPA.writeNewFile = function(text, opts) {
       writer.onerror = errorHandler;
       writer.onwriteend = function(e) {
         if (opts.verbose) console.log('File write complete', e);
+        Editor.current_file = writableFileEntry;
       };
       writer.write(new Blob([text], {type: 'text/plain'}));  
     }, errorHandler);

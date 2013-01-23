@@ -349,7 +349,6 @@ $(function() {
     interaction.dragging = true;
     if (text[col] !== undefined && text[col][row] !== undefined) {
       mode[currentMode].mousedown(row, col);
-      Editor.markDataDirty();
     }
   })
   .on("mousemove", "#easel", function(e) {
@@ -374,6 +373,7 @@ $(function() {
     interaction.dragging = false;
     if (text[col] !== undefined && text[col][row] !== undefined) {
       mode[currentMode].mouseup(row, col);
+      Editor.markDataDirty();
     }
   })
   .on("mouseup", window, function(e) {
