@@ -10,7 +10,13 @@
   "app": {
     "background": {
       "scripts": [
-        "js/main.js"
+        "js/main.js",
+        "js/letterbrush.js",
+        "js/lib/inherit.js",
+        "js/lib/jquery.js",
+        "js/lib/jquery.mousewheel.min.js",
+        "js/lib/keyDecode.js",
+        "js/lib/jqui/jquery-ui-1.8.16.custom.min.js"
       ]
     }
   }

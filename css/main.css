@@ -10,3 +10,9 @@ h1 {
   font-family: Arial, sans-serif;
   letter-spacing: -0.05em;
 }
+
+#easel {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

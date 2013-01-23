@@ -1,12 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
-    <title>Hello World</title>
-    <link href="css/main.css" rel="stylesheet">
-</head>
-<body>
-  <h1>LetterBrush (GPA)</h1>
-  <p>A freshly-scaffolded Chrome Packaged app! Yay!</p>
-</body>
+    <title>LetterBrush - HTML5 ASCII Art Fun</title>
+
+    <link rel="shortcut icon" href="letterbrush-favicon.png" />
+    <link rel="stylesheet" href="js/lib/jqui/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" href="css/letterbrush.css">
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/lib/jqui/jquery-ui-1.8.16.custom.min.js"></script>
+    <script src="js/lib/jquery.mousewheel.min.js"></script>
+    <script src="js/lib/inherit.js"></script>
+    <script src="js/lib/keyDecode.js"></script>
+    <script src="js/letterbrush.js"></script>
+  </head>
+  <body class="noSelect">
+    <canvas id="easel" width="800" height="600">
+      You need canvas!
+    </canvas>
+    <div id="hScroll">
+      <div id="hScrollHandle"></div>
+    </div>
+    <div id="vScroll">
+      <div id="vScrollHandle"></div>
+    </div>
+    <div id="tools">
+      <div id="currentCharLabel">today's letter is</div>
+      <div id="currentChar">B</div>
+      <div id="currentCharHelp">type a letter<br>draw that letter</div>
+      <div id="toolSelector">
+        <div id="toolbox">
+          <button id="pencil" data-tool="pencil" class="tool active">pencil</button>
+          <button id="line" data-tool="line" class="tool">line</button>
+          <button id="square" data-tool="square" class="tool">square</button>
+          <button id="fill" data-tool="fill" class="tool">fill</button>
+          <button id="undo" disabled>undo</button>
+          <button id="redo" disabled>redo</button>
+        </div>
+        <div id="zoomTools">
+          <div id="zoomLabel">zoom</div>
+          <div id="zoom"></div>
+        </div>
+      </div>
+      <div id="importExport">
+        <div class="buttons">
+          <button id="import">import</button>
+          <button id="export">export</button>
+          <button id="colors">colors</button>
+        </div>
+        <div id="links">
+          <a href="#" id="shortcuts">shortcuts</a>
+          |
+          <a href="https://github.com/incompl/LetterBrush">github</a>
+          |
+          <a href="http://incompl.com">me</a>
+        </div>
+      </div>
+      <div id="importDialog">
+        <div id="fileInputWrapper">
+          <div id="fileInputLabel">
+            File
+          </div>
+          <input type="file" id="fileInput">
+        </div>
+        <div id="importOr">
+          or
+        </div>
+        <textarea id="importText">paste text here</textarea>
+      </div>
+      <div id="exportDialog">
+        <textarea id="exportText"></textarea>
+      </div>
+      <div id="colorsDialog">
+        <p>
+          Colors are customized with
+          <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>.
+        </p>
+        <textarea id="colorsJSON"></textarea>
+      </div>
+      <div id="shortcutsDialog">
+        ctrl-z = undo<br>
+        ctrl-y = redo<br>
+        right click = eyedropper<br>
+        tab = switch tool
+      </div>
+    </div>
+  </body>
 </html>

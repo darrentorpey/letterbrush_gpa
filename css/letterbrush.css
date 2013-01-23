@@ -1,0 +1,227 @@
+body {
+  margin: 0;
+  font-size: 1.2em;
+  overflow: hidden;
+  font-family: arial;
+  padding: 10px;
+  position: relative;
+  background-color: #CCC;
+}
+
+body.noSelect {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+a:link, a:visited {
+  color: black;
+}
+a:hover {
+  color: #ce00bd;
+}
+a:active {
+  background-color: #ffaef8;
+}
+
+p {
+  margin: .3em 0;
+}
+
+#hScroll {
+  width: 800px;
+  height: 20px;
+  bottom: 0;
+  background: rgb(255,255,255); /* Old browsers */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#aaaaaa)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, #ffffff, #aaaaaa); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(top, #ffffff, #aaaaaa); /* FF3.6 */
+  background-image:     -ms-linear-gradient(top, #ffffff, #aaaaaa); /* IE10 */
+  background-image:      -o-linear-gradient(top, #ffffff, #aaaaaa); /* Opera 11.10+ */
+  background-image:         linear-gradient(top, #ffffff, #aaaaaa);
+}
+
+#vScroll {
+  width: 20px;
+  height: 600px;
+  right: 220px;
+  /*top: 0;*/
+  background: rgb(255,255,255); /* Old browsers */
+  background-image: -webkit-gradient(linear, left top, right top, from(#ffffff), to(#ccc)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(left, #ffffff, #ccc); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(left, #ffffff, #ccc); /* FF3.6 */
+  background-image:     -ms-linear-gradient(left, #ffffff, #ccc); /* IE10 */
+  background-image:      -o-linear-gradient(left, #ffffff, #ccc); /* Opera 11.10+ */
+  background-image:         linear-gradient(left, #ffffff, #ccc);
+}
+
+#hScroll, #vScroll {
+  position: absolute;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+#hScrollHandle, #vScrollHandle {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 10px;
+  border: solid #acacac 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+#tools {
+  width: 220px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: center;
+}
+
+#currentCharLabel {
+  padding: .5em 0;
+  font-style: italic;
+}
+
+#currentChar {
+  font-size: 96px;
+  text-shadow: 1px 1px 0 #a03bff;
+  margin: 0 0 10px;
+}
+
+#currentCharHelp {
+  margin: .5em 0;
+}
+
+#toolSelector {
+  background-color: #efdeff;
+  padding: 10px;
+  border-radius: 5px 0 0 5px;
+}
+
+#toolSelector button {
+  font-size: 1.2em;
+  width: 95px;
+  height: 60px;
+  margin: 2px 0;
+}
+
+button {
+  border: solid 2px #b0b0b0;
+  border-radius: 5px;
+  background: #efefef; /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(209,209,209,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(209,209,209,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(209,209,209,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(209,209,209,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(209,209,209,1) 100%); /* IE10+ */
+  background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(209,209,209,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
+}
+
+button:active {
+  background: #ff8afb;
+}
+
+button:hover {
+  border: solid 2px #555555;
+}
+
+button:disabled {
+  background: #ddd;
+  border: none;
+}
+
+button.beingClicked {
+  background: #ff8afb;
+}
+
+#toolSelector button.active {
+  background: #e3ffdd;
+  border: solid 2px #22b400;
+  color: #115900;
+  text-shadow: 0 0 2px rgb(100, 255, 100);
+}
+
+#zoomLabel {
+  margin: 5px 0 8px;
+}
+
+#zoom {
+  margin: 0 5px;
+}
+
+.buttons {
+  text-align: left;
+  margin: 0 12px;
+}
+
+#links {
+  margin: .5em 0 0;
+}
+
+#importExport {
+  margin: 10px 0 0;
+  background-color: #efdeff;
+  padding: 10px 3px;
+  border-radius: 5px 0 0 5px;
+}
+
+#importExport button {
+  font-size: 1.1em;
+  width: 90px;
+}
+
+#fileInputLabel {
+  margin: 5px 0;
+}
+
+#fileInputWrapper {
+  margin: 0 1em;
+  background-color: #deffdc;
+  padding: .2em .5em;
+  border-radius: 10px;
+}
+
+#importOr {
+  margin: .5em 0;
+  padding: 1px 3px 3px;
+  border-width: 1px;
+  border-style: solid none;
+  border-color: #54004d;
+  text-align: center;
+  background-color: #ffe8fd;
+}
+
+#importText {
+  margin: 0 1em;
+  width: 410px;
+  height: 100px;
+}
+
+#exportText {
+  width: 400px;
+  height: 300px;
+  overflow: scroll;
+}
+
+#colorsJSON {
+  width: 400px;
+  height: 250px;
+}
+
+.ui-slider {
+  border: 1px solid #929292;
+}
+
+
+/* New styles for GPA version */
+
+#easel {
+  background-color: white;
+}
+
+
