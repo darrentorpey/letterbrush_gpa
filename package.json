@@ -1,0 +1,12 @@
+{
+  "name": "lb_gcaa",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "0.1.1rc6",
+    "grunt-contrib-watch": "0.2.0rc5",
+    "grunt": "0.4.0rc7"
+  }
+}
