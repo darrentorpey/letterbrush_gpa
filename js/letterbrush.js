@@ -10,7 +10,13 @@ Created for 91 http://startcontinue.com
 */
 
 $(function() {
-  
+  opts = {};
+  _.defaults(opts, {
+    initGridHeight:  50,
+    initGridWidth:   100,
+    verticalPadding: 10
+  });
+
   var scrollbarWidth = $("#vScroll").width();
   var scrollbarHeight = $("#vScroll").width();
   var scrollbarSize = $("#vScroll").width();
@@ -827,15 +833,15 @@ $(function() {
     }
     
     $("#hScroll").width(newWidthPixels)
-    .css("top", newHeightPixels);
+    .css("top", newHeightPixels - opts.verticalPadding);
     view.width = newWidthTiles;
     scrollbarWidth = newWidthPixels * (view.width / textWidth);
     $("#hScrollHandle").css("left", 0)
     .width(scrollbarWidth);
     
-    $("#vScroll").height(newHeightPixels)
+    $("#vScroll").height(newHeightPixels - opts.verticalPadding)
     .css("left", newWidthPixels);
-    view.height = newHeightTiles;
+    view.height = newHeightTiles - opts.verticalPadding;
     scrollbarHeight = newHeightPixels * (view.height / text.length);
     $("#vScrollHandle").css("top", 0)
     .height(scrollbarHeight);
