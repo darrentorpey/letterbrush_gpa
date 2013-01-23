@@ -901,7 +901,13 @@ $(function() {
       draw();
     }
   });
-  
+
+  // New stuff for GPA version
+  setTimeout(function autosave() {
+    var saved = Editor.save();
+    if (saved) console.log('-- Autosaved at ' + (new Date()).toUTCString() + ' --');
+    setTimeout(autosave, 2000);
+  }, 2000);
 });
 
 Editor = {
@@ -918,9 +924,16 @@ Editor = {
     return map_string;
   },
 
-  save: function () {
-    GPA.overwriteFile(this.current_file, this.getMapData());
-    this.clearDataDirt();
+  save: function (opts) {
+    opts = opts || { force: false };
+
+    if ((this.dirty || opts.force) && this.current_file) {
+      GPA.overwriteFile(this.current_file, this.getMapData());
+      this.clearDataDirt();
+      return true;
+    }
+
+    return false;
   },
 
   markDataDirty: function() {

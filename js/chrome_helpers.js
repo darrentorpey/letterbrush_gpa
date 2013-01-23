@@ -8,7 +8,7 @@ GPA.readFile = function(onRead, opts) {
   };
 
   onRead = onRead || function(e) {
-    console.log('Result', e.target.result);
+    if (opts.verbose) console.log('File reading done', e.target.result);
   };
 
   var roe;
@@ -29,6 +29,7 @@ GPA.readFile = function(onRead, opts) {
 }
 
 GPA.overwriteFile = function(chosenFileEntry, content) {
+  opts = opts || {};
 
   errorHandler = opts.onError || function(e) {
     console.log('Error on file overwrite:', e);
@@ -38,7 +39,7 @@ GPA.overwriteFile = function(chosenFileEntry, content) {
     writableFileEntry.createWriter(function(writer) {
       writer.onerror = errorHandler;
       writer.onwriteend = function() {
-        console.log('done truncating!')
+        if (opts.verbose) console.log('File truncation complete')
       };
 
       writer.truncate(content.length);
@@ -47,7 +48,7 @@ GPA.overwriteFile = function(chosenFileEntry, content) {
     writableFileEntry.createWriter(function(writer) {
       writer.onerror = errorHandler;
       writer.onwriteend = function() {
-        console.log('done overwriting!')
+        if (opts.verbose) console.log('File overwriting complete')
       };
 
       writer.write(new Blob([content], {type: 'text/plain'}));
