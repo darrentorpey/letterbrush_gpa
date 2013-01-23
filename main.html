@@ -14,6 +14,7 @@
     <script src="js/lib/keyDecode.js"></script>
     <script src="js/lib/underscore.js"></script>
     <script src="js/letterbrush.js"></script>
+    <script src="js/chrome_helpers.js"></script>
   </head>
   <body class="noSelect">
     <canvas id="easel" width="800" height="600">
@@ -63,6 +64,7 @@
             File
           </div>
           <input type="file" id="fileInput">
+          <button class="readFile">Read file</button>
         </div>
         <div id="importOr">
           or
@@ -70,6 +72,10 @@
         <textarea id="importText">paste text here</textarea>
       </div>
       <div id="exportDialog">
+        <button class="saveExportToFile">Save to File</button>
+
+        <p>or copy from the text below:</p>
+        
         <textarea id="exportText"></textarea>
       </div>
       <div id="colorsDialog">

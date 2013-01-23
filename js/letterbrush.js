@@ -39,6 +39,9 @@ $(function() {
   var interaction = {cancelled: false, dragging: false};
   
   var text = [];
+  window.getMapTextFromOldEditor = function() {
+    return text;
+  }
   var textWidth = 0;
   function updateTextWidth() {
     var newWidth = 0;
@@ -346,6 +349,7 @@ $(function() {
     interaction.dragging = true;
     if (text[col] !== undefined && text[col][row] !== undefined) {
       mode[currentMode].mousedown(row, col);
+      Editor.markDataDirty();
     }
   })
   .on("mousemove", "#easel", function(e) {
@@ -512,10 +516,26 @@ $(function() {
     $("#fileInputWrapper").remove();
     $("#importOr").remove();
   }
+  $("#importDialog").on('click', '.readFile', function() {
+    window.readOnlyEntry = GPA.readFile(function(e) {
+      console.log('Read file', e);
+      window.file_read = e;
+      importText(e.target.result);
+      $("#fileInput").val("");
+      $("#importDialog").dialog("close");
+    });
+  });
   $("#fileInput").change(function() {
     var file = this.files[0];
     var reader = new FileReader();
+
+    // var window.fileEntry = data.items[0].webkitGetAsEntry();
+    // window.last_file = file;
+    // console.log('fileEntry', fileEntry);
+    // window.last_reader = reader;
     reader.onload = function(e) {
+      console.log('read file', e);
+      window.file_read = e;
       importText(e.target.result);
       $("#fileInput").val("");
     };
@@ -547,7 +567,14 @@ $(function() {
   
   
   // export
-  $("#exportDialog").hide();
+  $("#exportDialog").hide()
+    .on('click', '.saveExportToFile', function() {
+      console.log('yeah');
+      var $exportText = $("#exportText");
+      GPA.writeNewFile($exportText.val());
+      return false;
+    });
+  
   $("#export").click(function() {
     $("body").removeClass("noSelect");
     var $exportDialog = $("#exportDialog");
@@ -560,7 +587,7 @@ $(function() {
       title: "Export",
       modal: true,
       width: 450,
-      position: ['center', 100],
+      position: ['center', 50],
       buttons: {
         done: function() {
           $(this).dialog("close");
@@ -876,3 +903,31 @@ $(function() {
   });
   
 });
+
+Editor = {
+  dirty: false,
+
+  getMapData: function() {
+    var map_text = getMapTextFromOldEditor();
+    var map_string = '';
+
+    for (i = 0; i < map_text.length; i++) {
+      map_string += map_text[i].join('') + '\n';
+    }
+
+    return map_string;
+  },
+
+  save: function () {
+    GPA.overwriteFile(this.current_file, this.getMapData());
+    this.clearDataDirt();
+  },
+
+  markDataDirty: function() {
+    this.dirty = true;
+  },
+
+  clearDataDirt: function() {
+    this.dirty = false;
+  }
+}
