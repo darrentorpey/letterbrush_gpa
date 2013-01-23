@@ -841,7 +841,7 @@ $(function() {
     
     $("#vScroll").height(newHeightPixels - opts.verticalPadding)
     .css("left", newWidthPixels);
-    view.height = newHeightTiles - opts.verticalPadding;
+    view.height = newHeightTiles;
     scrollbarHeight = newHeightPixels * (view.height / text.length);
     $("#vScrollHandle").css("top", 0)
     .height(scrollbarHeight);
