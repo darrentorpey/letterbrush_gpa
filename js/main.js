@@ -11,7 +11,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
       minWidth:  855,
       minHeight: 630,
       left:      20,
-      top:       20,
+      top:       145
     },
     function(appWindow) {
       appWindow.drawAttention();
